@@ -12,11 +12,17 @@ server.use(helmet());
 server.use(bodyParser.json());
 
 // Your API will be built out here.
-server.get('/', function(req, res) {
-  res.status(200).json({ api: 'running' });
-});
+// server.get('/', function(req, res) {
+//   res.status(200).json({ api: 'running' });
+// });
 
-mongoose.connect('mongodb://localhost/library').then(
+server.get("/", (req, res) => {
+  Book.find({})
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+})
+
+mongoose.connect('mongodb://localhost/cs6').then(
   () => {
     const port = process.env.PORT || 3000;
     server.listen(port);
